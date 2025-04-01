@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,18 +12,24 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   File? _image;
+  String? _binaryString;
   final picker = ImagePicker();
 
   Future<void> pickImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      List<int> imageBytes = await imageFile.readAsBytes();
+      String base64String = base64Encode(imageBytes);
+      print(base64String);
+
       setState(() {
-        _image = File(pickedFile.path);
+        _image = imageFile;
+        _binaryString = base64String;
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +50,10 @@ class _HomePageViewState extends State<HomePageView> {
               onPressed: pickImage,
               child: Text("Pick Image from Gallery"),
             ),
+            SizedBox(height: 20),
+            _binaryString != null
+                ? SelectableText("Binary (Base64): ${_binaryString!.substring(0, 50)}...")
+                : Container(),
           ],
         ),
       ),

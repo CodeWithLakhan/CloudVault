@@ -12,7 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  image_picker: ^1.0.7  # Added Image Picker dependency
+  image_picker: ^1.0.7 # Added Image Picker dependency
+  firebase_core: ^2.32.0
+  firebase_auth: ^4.20.0
+  cloud_firestore: ^4.15.0
+  crypto: ^3.0.6
 
 dev_dependencies:
   flutter_test:
