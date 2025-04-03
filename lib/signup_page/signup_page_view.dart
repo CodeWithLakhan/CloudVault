@@ -23,7 +23,7 @@ class _SignupPageViewState extends State<SignupPageView> {
     return sha256.convert(utf8.encode(password)).toString();
   }
 
-  Future<void> _signUp() async {
+  Future<void> _signUp  () async {
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
